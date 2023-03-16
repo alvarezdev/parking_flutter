@@ -1,6 +1,6 @@
 # parking_flutter
 
-A new Flutter project.
+This project is didactic
 
 ## Getting Started
 
