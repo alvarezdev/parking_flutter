@@ -1,44 +1,44 @@
 import 'package:domain/domain.dart';
 
-class VehicleDaoMock implements VehicleRepository{
-  List<Vehicle>? vehicleList;
+class TicketRepositoryMock implements TicketRepository{
+  List<Ticket>? ticketList;
 
-  VehicleDaoMock(){
-    vehicleList = [];
+  TicketRepositoryMock(){
+    ticketList = [];
   }
 
   @override
-  addVehicle(Vehicle vehicleDto) {
-    vehicleList!.add(vehicleDto);
+  addTicket(Ticket ticket) {
+    ticketList!.add(ticket);
+  }
+
+  @override
+  deleteTicket(String id) {
+    if (ticketList!.isNotEmpty) {
+      var ticket = getTicket(id);
+      ticketList!.remove(ticket);
+    }
+  }
+
+  @override
+  Ticket getTicket(String id) {
+    if (ticketList!.isNotEmpty) {
+      return ticketList!.firstWhere((item) => item.id == id);
+    }else{
+      throw Exception("Empty Database");
+    }
+  }
+
+  @override
+  List<Ticket> getTicketList() {
+    return ticketList!;
   }
 
   @override
   deleteAll() {
-    if (vehicleList!.isNotEmpty) {
-      vehicleList!.clear();
+    if (ticketList!.isNotEmpty) {
+      ticketList!.clear();
     }
-  }
-
-  @override
-  deleteVehicle(String plate) {
-    if (vehicleList!.isNotEmpty) {
-      var vehicle = getVehicle(plate);
-      vehicleList!.remove(vehicle);
-    }
-  }
-
-  @override
-  Vehicle getVehicle(String plate) {
-    if (vehicleList!.isNotEmpty) {
-      return vehicleList!.firstWhere((vehicle) => plate == vehicle.plate);
-    }else{
-      return Vehicle(plate: "AAA111", cylinderCapacity: 1000, entryTime: DateTime.now());
-    }
-  }
-
-  @override
-  List<Vehicle> getVehicleList() {
-    return vehicleList!;
   }
 
 

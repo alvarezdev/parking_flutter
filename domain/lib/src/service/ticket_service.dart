@@ -4,7 +4,7 @@ import 'package:domain/src/enum/ticket_type.dart';
 import 'package:domain/src/model/ticket.dart';
 import 'package:domain/src/repository/ticket_repository.dart';
 
-class VehicleService{
+class TicketService{
   final String _fullParkingMsg = "The parking is full";
   final String _repeatVehiclePlateMsg = "The vehicle plate is repeat";
   final String _unauthorizedEntry = "Unauthorized entry";
@@ -23,23 +23,23 @@ class VehicleService{
 
   final TicketRepository _ticketRepository;
 
-  VehicleService(this._ticketRepository);
+  TicketService(this._ticketRepository);
 
   createEntryTicket(Ticket ticket){
     List<Ticket> ticketList = _ticketRepository.getTicketList();
     if (ticketList.length >= _maxCapacityParking) {
       throw Exception(_fullParkingMsg);
     } else {
-      bool maxCapacity = maxCapacityVehicle(ticketList);
-      bool plateRepeat = checkPlateNoRepeat(ticketList, ticket);
-      bool checkDate = validateDate(ticket);
+      bool maxCapacity = _maxCapacityVehicle(ticketList);
+      bool plateRepeat = _checkPlateNoRepeat(ticketList, ticket);
+      bool checkDate = _validateDate(ticket);
       if (maxCapacity && plateRepeat && checkDate){
         _ticketRepository.addTicket(ticket);
       }
     }
   }
 
-  bool maxCapacityVehicle(List<Ticket> ticketList){
+  bool _maxCapacityVehicle(List<Ticket> ticketList){
     int numCar = ticketList.where((item) => item.ticketType == TicketType.car).length;
     int numMotorcycle = ticketList.where((item) => item.ticketType == TicketType.motorcycle).length;
 
@@ -52,7 +52,7 @@ class VehicleService{
     return true;
   }
 
-  bool checkPlateNoRepeat(List<Ticket> ticketList, Ticket ticket) {
+  bool _checkPlateNoRepeat(List<Ticket> ticketList, Ticket ticket) {
     bool vehicleExist = ticketList.any((item) => item.vehicle!.plate == ticket.vehicle!.plate );
     if (vehicleExist){
       throw Exception(_repeatVehiclePlateMsg);
@@ -61,7 +61,7 @@ class VehicleService{
     }
   }
 
-  bool validateDate(Ticket ticket) {
+  bool _validateDate(Ticket ticket) {
     int dayOfWeek =  ticket.entryTime!.weekday;
     if ((dayOfWeek == DateTime.sunday || dayOfWeek == DateTime.monday) &&
         ticket.vehicle!.plate!.substring(0, 1) == "A"){
