@@ -1,1 +1,0 @@
-enum TicketType{ car, motorcycle }
