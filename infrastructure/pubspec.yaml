@@ -9,7 +9,15 @@ environment:
 dependencies:
   domain:
     path: ../domain
+  drift: ^2.5.0
+  sqlite3_flutter_libs: ^0.5.0
+  path_provider: ^2.0.0
+  path: ^1.8.2
 
 dev_dependencies:
   lints: ^2.0.0
   test: ^1.21.0
+  drift_dev: ^2.5.2
+  build_runner: ^2.3.3
+  flutter_test:
+    sdk: flutter
