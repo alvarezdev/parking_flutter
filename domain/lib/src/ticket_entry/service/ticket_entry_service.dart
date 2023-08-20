@@ -9,27 +9,29 @@ abstract class TicketEntryService {
   final TicketEntryRepository _ticketRepository;
 
   abstract final int maxCapacityVehicle;
-  List<TicketEntry> getListTicket();
+  Future<List<TicketEntry>> getListTicket();
 
   static const String _repeatVehiclePlateMsg = "The vehicle plate is repeat";
   static const String _maxCapacityVehicleMsg =
       "Parking capacity for vehicle is full";
 
-  addTicketEntry(TicketEntry entryTicket) {
-    if(getListTicket().length >= maxCapacityVehicle){
+  Future<void> addTicketEntry(TicketEntry entryTicket) async {
+    var list = await getListTicket();
+    var ticket = await getTicketEntry(entryTicket.vehicle.plate);
+    if (list.length >= maxCapacityVehicle){
       throw BusinessException(_maxCapacityVehicleMsg);
-    }else if(getTicketEntry(entryTicket.vehicle.plate) != null){
+    } else if (ticket != null) {
       throw BusinessException(_repeatVehiclePlateMsg);
-    }else{
-      _ticketRepository.add(entryTicket);
+    } else {
+      await _ticketRepository.add(entryTicket);
     }
   }
 
-  TicketEntry? getTicketEntry(String id) {
+  Future<TicketEntry?> getTicketEntry(String id) {
     return _ticketRepository.getById(id);
   }
 
-  List<TicketEntry> getListTicketEntry(){
+  Future<List<TicketEntry>> getListTicketEntry(){
     return _ticketRepository.getList();
   }
 

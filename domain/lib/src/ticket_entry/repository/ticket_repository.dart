@@ -1,11 +1,11 @@
 import 'package:domain/src/ticket_entry/model/ticket_entry.dart';
 
 abstract class TicketEntryRepository {
-  add(TicketEntry ticket);
+  Future<void> add(TicketEntry ticket);
 
-  TicketEntry? getById(String id);
+  Future<TicketEntry?> getById(String id);
 
-  List<TicketEntry> getList();
+  Future<List<TicketEntry>> getList();
 
   delete(String id);
 }

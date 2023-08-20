@@ -1,5 +1,4 @@
 import 'package:domain/domain.dart';
-import 'package:domain/src/ticket_entry/model/ticket_entry.dart';
 import 'package:domain/src/ticket_exit/model/ticket_exit.dart';
 
 class TicketExitMotorcycle extends TicketExit {

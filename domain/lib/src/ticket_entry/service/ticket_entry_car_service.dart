@@ -9,12 +9,12 @@ class TicketEntryCarService extends TicketEntryService {
   int get maxCapacityVehicle => 20;
 
   @override
-  List<TicketEntry> getListTicket() {
+  Future<List<TicketEntry>> getListTicket() async {
     List<TicketEntry> listReturn = [];
-    List<TicketEntry> list = getListTicketEntry();
+    List<TicketEntry> list = await getListTicketEntry();
     for (var element in list) {
       try {
-        Car car = element.vehicle as Car;
+        element.vehicle as Car;
         listReturn.add(element);
       } catch (e) {}
     }

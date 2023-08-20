@@ -1,5 +1,4 @@
 import 'package:domain/domain.dart';
-import 'package:domain/src/ticket_entry/model/ticket_entry.dart';
 import 'package:domain/src/ticket_entry/service/ticket_entry_service.dart';
 
 class TicketEntryMotorcycleService extends TicketEntryService {
@@ -9,9 +8,9 @@ class TicketEntryMotorcycleService extends TicketEntryService {
   int get maxCapacityVehicle => 10;
 
   @override
-  List<TicketEntry> getListTicket() {
+  Future<List<TicketEntry>> getListTicket() async {
     List<TicketEntry> listReturn = [];
-    List<TicketEntry> list = getListTicketEntry();
+    List<TicketEntry> list = await getListTicketEntry();
 
     for (var element in list) {
       try {
