@@ -1,15 +1,16 @@
 import 'package:domain/domain.dart';
 import 'package:infrastructure/src/ticket_entry/repository/contracts/ticket_entry_repository_database.dart';
 
+
 class TicketEntryCarDbRepositoryDev extends TicketEntryRepositoryDatabase{
   @override
-  add(TicketEntry ticket) {
+  Future<void> add(TicketEntry ticket) {
     // TODO: implement add
     throw UnimplementedError();
   }
 
   @override
-  delete(String id) {
+  Future<void> delete(String id) {
     // TODO: implement delete
     throw UnimplementedError();
   }

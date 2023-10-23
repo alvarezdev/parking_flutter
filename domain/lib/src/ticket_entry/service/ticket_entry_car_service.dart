@@ -1,7 +1,9 @@
 import 'package:domain/src/ticket_entry/model/ticket_entry.dart';
 import 'package:domain/src/ticket_entry/service/ticket_entry_service.dart';
 import 'package:domain/src/vehicle/model/car.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class TicketEntryCarService extends TicketEntryService {
   TicketEntryCarService(super.ticketRepository);
 

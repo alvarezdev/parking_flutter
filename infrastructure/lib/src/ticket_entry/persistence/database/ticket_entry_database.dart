@@ -6,6 +6,7 @@ import 'package:infrastructure/src/ticket_entry/persistence/dao/ticket_entry_car
 import 'package:infrastructure/src/ticket_entry/persistence/dao/ticket_entry_motorcycle/ticket_entry_motorcycle_dao.dart';
 import 'package:infrastructure/src/ticket_entry/persistence/entity/ticket_entry_entity_car.dart';
 import 'package:infrastructure/src/ticket_entry/persistence/entity/ticket_entry_entity_motorcycle.dart';
+import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
@@ -15,6 +16,7 @@ part 'ticket_entry_database.g.dart';
   tables: [TicketEntryCarEntity, TicketEntryMotorcycleEntity],
   daos: [TicketEntryCarDao, TicketEntryMotorcycleDao]
 )
+@singleton
 class TicketEntryDatabase extends _$TicketEntryDatabase {
   TicketEntryDatabase() : super(_openConnection());
 

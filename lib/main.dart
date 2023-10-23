@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:parking_flutter/dependencyInjection/dependency_injection.dart';
+import 'package:parking_flutter/screen/pay/pay_screen.dart';
+import 'package:parking_flutter/screen/register_car/register_car_screen.dart';
+import 'package:parking_flutter/screen/register_motorcycle/register_motorcycle_screen.dart';
+import 'package:parking_flutter/shared/alert_dialog_generic.dart';
+import 'package:parking_flutter/shared/app_routes.dart';
 
 void main() {
+  configureInjection();
   runApp(const MyApp());
 }
 
@@ -9,55 +16,75 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'movies',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: HomeScreen.routeName,
+      routes: AppRouter.routes,
     );
+    /* MaterialApp(
+      title: 'App Parking',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const HomeScreen(),
+    );*/
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
-  final String title;
+  static const routeName = 'home-screen';
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {_counter++;});
-  }
-
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text("Parking"),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Column(
+            children: [
+              TextButton(
+                onPressed: () {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => const AlertDialogGeneric()
+                  );
+                },
+                child: const SizedBox(
+                  width: double.infinity,
+                  child: Center(
+                    child: Text("Ingresar"),
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    PayScreen.routeName,
+                  );
+                },
+                child: const SizedBox(
+                  width: double.infinity,
+                  child: Center(
+                    child: Text("Pagar"),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
